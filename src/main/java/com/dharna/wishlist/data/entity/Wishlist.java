@@ -11,10 +11,11 @@ import javax.persistence.Id;
 @Data
 public class Wishlist {
     @Id
-    private String wishlist;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long id;
+    public String category;
+    public String userid;
     private String code;
-
-
 
 
 }

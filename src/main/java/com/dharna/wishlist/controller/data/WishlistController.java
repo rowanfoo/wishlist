@@ -3,48 +3,46 @@ package com.dharna.wishlist.controller.data;
 import com.dharna.wishlist.data.entity.QWishlist;
 import com.dharna.wishlist.data.entity.Wishlist;
 import com.dharna.wishlist.data.repo.WishlistRepo;
-import org.glassfish.jersey.internal.guava.Lists;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Optional;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/wishlist")
 public class WishlistController {
 
-    @Autowired WishlistRepo wishlistRepo;
+    @Autowired
+    WishlistRepo wishlistRepo;
 
     @PutMapping("/")
-    public void  insert (@RequestBody Wishlist wishlist){
+    public void insert(@RequestBody Wishlist wishlist) {
         System.out.println("----insert-------------" + wishlist);
- //       wishlistRepo.save(wishlist);
+
+        Optional<Wishlist> wish = wishlistRepo.findOne(QWishlist.wishlist.category.eq(wishlist.category));
+//        wish.get()
+
+
+        if (wish.isPresent()) {
+            Wishlist twish = wish.get();
+            twish.setCode(wishlist.getCode());
+            wishlistRepo.save(twish);
+
+        } else {
+            wishlistRepo.save(wishlist);
+
+        }
+
     }
 
 
     @GetMapping()
-    public Iterable<Wishlist> getbywishname(@PathVariable String name){
+    public Iterable<Wishlist> getbywishname(@PathVariable String name) {
 
-      return   wishlistRepo.findAll(QWishlist.wishlist1.wishlist.eq(name));
+        return wishlistRepo.findAll(QWishlist.wishlist.category.eq(name));
 
     }
-
-    @GetMapping("/wishcategory")
-    public Iterable<Wishlist>  getwishlistcategory(String category){
-
-        Iterable<Wishlist> arr =   wishlistRepo.findAll(QWishlist.wishlist1.wishlist.eq(category));
-
-        arr.forEach((a)->{
-
-            System.out.println("-----" + a);
-        });
-
-       // return Lists.newArrayList(arr) ;
-    return arr;
-    }
-
 
 
 //
@@ -71,10 +69,6 @@ public class WishlistController {
 //        coreDataService.clearcache();
 //        return "done";
 //    }
-
-
-
-
 
 
 }

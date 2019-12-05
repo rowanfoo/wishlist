@@ -1,9 +1,7 @@
 package com.dharna.wishlist.service;
 
-import com.dharna.wishlist.data.entity.QWishlist;
 import com.dharna.wishlist.data.repo.WishlistRepo;
 import com.dharna.wishlist.service.pojo.CoreStock;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -23,8 +21,9 @@ public class WishlistService {
 
     @Autowired
     WishlistRepo repo;
+
     @Cacheable("wishlistcategory")
-    public List<String> findWishlistCategory(){
+    public List<String> findWishlistCategory() {
 
 //        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 //
@@ -34,33 +33,31 @@ public class WishlistService {
 //                .fetch();
 //        return  stks;
 //
-     ArrayList<String> arr = new ArrayList<>();
-      repo.findAll().forEach((a)->{
+        ArrayList<String> arr = new ArrayList<>();
+        repo.findAll().forEach((a) -> {
 
-          arr.add(a.getWishlist()  );
+            arr.add(a.getCategory());
 
-      });
-          return arr;
+        });
+        return arr;
 
     }
+
     @Cacheable("wishlistcodes")
-    public  List<String> getallstockcodes(){
+    public List<String> getallstockcodes() {
         System.out.println("-------getallstockcodes---------");
 
-        String uri ="http://192.168.0.8:9000/stock/all";
-        RestTemplate restTemplate =new RestTemplate();
+        String uri = "http://192.168.0.8:9000/stock/all";
+        RestTemplate restTemplate = new RestTemplate();
         CoreStock result[] = restTemplate.getForObject(uri, CoreStock[].class);
-        ArrayList<String> arr  = new ArrayList<>();
+        ArrayList<String> arr = new ArrayList<>();
         for (CoreStock coreStock : result) {
-          arr.add(coreStock.getCode());
+            arr.add(coreStock.getCode());
         }
         return arr;
 
 
-
     }
-
-
 
 
 }
