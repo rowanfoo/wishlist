@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 
+
 @Repository
 @Transactional
-
-public interface WishlistRepo extends JpaRepository<Wishlist,Long>, QuerydslPredicateExecutor<Wishlist> {
+public interface WishlistRepo extends JpaRepository<Wishlist, Long>, QuerydslPredicateExecutor<Wishlist> {
 
 }
