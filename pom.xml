@@ -54,6 +54,11 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>23.0</version>
+        </dependency>
 
 
         <dependency>
@@ -119,6 +124,24 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>1.0.2</version>
+                <configuration>
+                    <to>
+                        <image>rowanf/wishlist</image>
+                        <auth>
+                            <username>rowanf</username>
+                            <password>rowm0ng1</password>
+                        </auth>
+                    </to>
+                    <!--                    <container>-->
+                    <!--                        <mainClass>com.learn.ta4j.Ta4jApplication</mainClass>-->
+                    <!--                    </container>-->
+
+                </configuration>
             </plugin>
 
         </plugins>
