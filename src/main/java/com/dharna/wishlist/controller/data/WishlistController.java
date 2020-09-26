@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/wishlist")
+//@RequestMapping("/wishlist")
 public class WishlistController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class WishlistController {
     @Autowired
     StockRepo stockRepo;
 
-    @PutMapping("/")
+    @PutMapping("/wishlist")
     public ResponseEntity<JsonNode> insert(@RequestBody Wishlist wishlist) {
         System.out.println("----insert-------------" + wishlist);
 
