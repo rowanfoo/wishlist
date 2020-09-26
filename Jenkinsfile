@@ -21,7 +21,7 @@ pipeline {
             steps {
               sh 'mvn -version'
               sh 'mvn compile'
-              sh 'mvn package'
+              sh 'mvn package -DskipTests'
             }
         }
 
